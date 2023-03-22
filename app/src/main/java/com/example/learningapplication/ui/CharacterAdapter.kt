@@ -42,16 +42,17 @@ class CharacterAdapter(var mContext: Context, var characterList: List<Characters
         val character = characterList.get(position)
         val design = holder.binding
         design.characterObject = character
-        var bundle = Bundle()
+
         var filmUrlList = mutableListOf<String>()
 
 
         design.cardViewToList.setOnClickListener {
             index = position
-            println(index)
+
             filmUrlList.addAll(character.filmUrls)
-            var list = filmUrlList.toTypedArray()
-            bundle = bundleOf("filmms" to list)
+            val list = filmUrlList.toTypedArray()
+
+            val bundle = bundleOf("filmms" to list)
             Navigation.findNavController(it).navigate(R.id.chars_to_films,bundle)
 
         }

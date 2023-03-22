@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import com.example.learningapplication.R
 import com.example.learningapplication.databinding.FragmentFilmsBinding
 
@@ -33,10 +34,7 @@ class FilmsFragment : Fragment() {
         viewModel.displayFilms(listOfFilmsByChar)
         viewModel.loadFilms()
 
-
-
         viewModel.listOfFilms.observe(viewLifecycleOwner) {
-
             val adapter = FilmAdapter(requireContext(), it)
             binding.filmAdapter = adapter
 
@@ -47,12 +45,10 @@ class FilmsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel = FilmViewModel()
+        val tempViewModel : FilmViewModel by viewModels()
+        viewModel = tempViewModel
 
     }
-
-
 
     }
 

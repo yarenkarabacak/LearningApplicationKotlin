@@ -12,8 +12,7 @@ data class Characters(@SerializedName("name") var name: String,
                       @SerializedName("eye_color") var eye_color: String,
                       @SerializedName("birth_year") var birth_year: String,
                       @SerializedName("gender") var gender: String,
-                      @SerializedName("films") var filmUrls: List<String>,
-                      var filmsPlayed: LiveData<List<Films>>) : Serializable {
+                      @SerializedName("films") var filmUrls: List<String>) : Serializable {
 
 
 }

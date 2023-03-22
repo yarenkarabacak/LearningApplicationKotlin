@@ -14,17 +14,11 @@ class CharactersFragment : Fragment() {
     private lateinit var binding: FragmentCharactersBinding
     private lateinit var viewModel: CharacterViewModel
 
-    var filmUrlList = mutableListOf<String>()
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_characters, container, false)
         binding.toolbarCharactersTitle = "Characters"
         binding.characterFragment = this
-
-        var bundle = Bundle()
-        var frag = FilmsFragment()
 
 
 

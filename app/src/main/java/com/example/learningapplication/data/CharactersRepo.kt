@@ -1,7 +1,7 @@
 package com.example.learningapplication.data
 
 import androidx.lifecycle.MutableLiveData
-import com.example.learningapplication.retrofit.ApiUtils
+import com.example.learningapplication.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,20 +11,18 @@ import retrofit2.Response
 class CharactersRepo() {
 
     var characterList: MutableLiveData<List<Characters>>
-    var charDao = ApiUtils.getCharacterDAO()
-    var allCharactersList = listOf<Characters>()
+    var charApi = RetrofitClient.getCharacterApi()
 
     init {
         characterList = MutableLiveData()
-
     }
 
 
 
     fun getCharacters() {
 
-        charDao.allCharacters().enqueue(object : Callback<Results> {
-            override fun onResponse(call: Call<Results>, response: Response<Results>) {
+        charApi.allCharacters().enqueue(object : Callback<CharacterResults> {
+            override fun onResponse(call: Call<CharacterResults>, response: Response<CharacterResults>) {
                 if (response.isSuccessful) {
                     val chars = response.body()!!.results
                     characterList.value = chars
@@ -32,9 +30,9 @@ class CharactersRepo() {
 
             }
 
-            override fun onFailure(call: Call<Results>, t: Throwable?) {}
+            override fun onFailure(call: Call<CharacterResults>, t: Throwable) {}
         })
-        println(charDao.allCharacters().isExecuted)
+        println(charApi.allCharacters().isExecuted)
 
     }
 
@@ -42,8 +40,5 @@ class CharactersRepo() {
         return characterList
     }
 
-    fun allListChars(): List<Characters> {
-        return allCharactersList
-    }
 
 }
