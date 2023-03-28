@@ -22,6 +22,10 @@ class HomeFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.home_to_chars)
         }
 
+        binding.buttonDbShow.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.home_to_db_chars)
+        }
+
         return binding.root
     }
 

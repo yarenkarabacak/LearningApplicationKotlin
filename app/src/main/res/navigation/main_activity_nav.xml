@@ -13,6 +13,9 @@
         <action
             android:id="@+id/home_to_chars"
             app:destination="@id/charactersFragment" />
+        <action
+            android:id="@+id/home_to_db_chars"
+            app:destination="@id/characterDbFragment" />
     </fragment>
     <fragment
         android:id="@+id/charactersFragment"
@@ -32,5 +35,14 @@
         <argument
             android:name="char_get"
             app:argType="com.example.learningapplication.data.Characters" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDbFragment"
+        android:name="com.example.learningapplication.ui.CharacterDbFragment"
+        android:label="fragment_character_db"
+        tools:layout="@layout/fragment_character_db" >
+        <action
+            android:id="@+id/chars_db_to_films"
+            app:destination="@id/filmsFragment" />
     </fragment>
 </navigation>

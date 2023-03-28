@@ -19,6 +19,7 @@ class CharacterAdapter(var mContext: Context, var characterList: List<Characters
     var index = 0
 
 
+
     class CardHolder (binding: CardCharactersBinding) : RecyclerView.ViewHolder(binding.root) {
         var binding : CardCharactersBinding
         init {
