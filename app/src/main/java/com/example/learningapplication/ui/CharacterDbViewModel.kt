@@ -6,6 +6,7 @@ import com.example.learningapplication.data_for_room.Character
 import kotlinx.coroutines.launch
 
 class CharacterDbViewModel(private val charDao: CharacterDao): ViewModel() {
+
     val allChars: LiveData<List<Character>> = charDao.getChars().asLiveData()
 
     private fun insertCharacter(char: Character) {
@@ -15,7 +16,7 @@ class CharacterDbViewModel(private val charDao: CharacterDao): ViewModel() {
     }
 
     private fun getNewCharacter(charName: String, charHeight: Int, charMass: Int,
-                             charHair_color: String, charSkin_color: String,
+                                charHair_color: String, charSkin_color: String,
                              charEye_color: String, charBirth_year: String,
                              charGender: String, filmUrls: List<String>): Character {
         return Character(
@@ -36,6 +37,7 @@ class CharacterDbViewModel(private val charDao: CharacterDao): ViewModel() {
                         charGender: String, filmUrls: List<String>) {
         val newChar = getNewCharacter(charName,charHeight,charMass,charHair_color,
                         charSkin_color, charEye_color, charBirth_year, charGender, filmUrls)
+
         insertCharacter(newChar)
     }
 

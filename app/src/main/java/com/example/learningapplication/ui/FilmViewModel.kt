@@ -14,8 +14,6 @@ class FilmViewModel: ViewModel() {
     val filmRepo = FilmsRepo()
     var listOfFilms = MutableLiveData<List<Films>>()
 
-
-
     fun displayFilms(tempList: List<String>) {
         filmRepo.getFilms(tempList)
     }

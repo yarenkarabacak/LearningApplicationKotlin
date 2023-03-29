@@ -25,11 +25,9 @@ class FilmsFragment : Fragment() {
         binding.filmsFragment = this
 
 
-
         var bundle = arguments
         var filmsFromBundle = bundle?.get("filmms") as Array<String>
         listOfFilmsByChar = filmsFromBundle.toList()
-
 
         viewModel.displayFilms(listOfFilmsByChar)
         viewModel.loadFilms()

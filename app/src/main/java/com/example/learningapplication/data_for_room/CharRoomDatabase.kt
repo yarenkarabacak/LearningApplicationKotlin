@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 import retrofit2.Converter
 
 @TypeConverters(FilmTypeConverters::class)
-@Database(entities = [Character::class], version = 2, exportSchema = false)
+@Database(entities = [Character::class], version = 3, exportSchema = false)
 
 abstract class CharRoomDatabase: RoomDatabase() {
     abstract fun characterDao(): CharacterDao

@@ -36,7 +36,7 @@ class CharacterDbFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CharListAdapter {}
+        val adapter = CharListAdapter()
         binding.recyclerView.adapter = adapter
 
         viewModel.allChars.observe(this.viewLifecycleOwner) { chars ->

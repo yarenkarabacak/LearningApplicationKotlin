@@ -4,8 +4,7 @@ import androidx.room.*
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "character")
-data class Character(@PrimaryKey(autoGenerate = true) val char_id: Int = 0,
-                     @ColumnInfo(name = "name") var charName: String,
+data class Character(@PrimaryKey var charName: String,
                      @ColumnInfo(name = "height") var charHeight: Int,
                      @ColumnInfo(name = "mass") var charMass: Int,
                      @ColumnInfo(name = "hair_color") var charHair_color: String,
@@ -13,8 +12,7 @@ data class Character(@PrimaryKey(autoGenerate = true) val char_id: Int = 0,
                      @ColumnInfo(name = "eye_color") var charEye_color: String,
                      @ColumnInfo(name = "birth_year") var charBirth_year: String,
                      @ColumnInfo(name = "gender") var charGender: String,
-                     //@ColumnInfo(name = "filmUrls") var filmUrls: List<String>,
-                     @field:TypeConverters(FilmTypeConverters::class) var filmUrls: List<String> )
+                     @field:TypeConverters(FilmTypeConverters::class) var filmUrls: List<String>)
 
 /*@Entity(tableName = "film_url")
 data class FilmUrls(@PrimaryKey(autoGenerate = true) val url_id: Int = 0,

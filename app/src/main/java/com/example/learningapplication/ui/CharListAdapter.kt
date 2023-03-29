@@ -12,7 +12,7 @@ import com.example.learningapplication.data_for_room.Character
 
 import com.example.learningapplication.databinding.ItemCharDbBinding
 
-class CharListAdapter(private val onItemClicked: (Character) -> Unit) :
+class CharListAdapter :
     ListAdapter<Character, CharListAdapter.CharViewHolder>(DiffCallBack){
 
     class CharViewHolder (binding: ItemCharDbBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -62,6 +62,7 @@ class CharListAdapter(private val onItemClicked: (Character) -> Unit) :
 
         design.cardViewToListDb.setOnClickListener {
             println(character)
+
             filmUrlList.addAll(character.filmUrls)
             val list = filmUrlList.toTypedArray()
 
