@@ -13,7 +13,7 @@ class FilmsRepo {
 
     fun getFilms(list: List<String>) {
 
-        charApi.allFilms().enqueue(object : Callback<FilmResults> {
+        charApi.getFilmsFromApi().enqueue(object : Callback<FilmResults> {
             override fun onResponse(call: Call<FilmResults>?, response: Response<FilmResults>) {
                 val filmsList = response.body()!!.results
                 var filteredList = mutableListOf<Films>()

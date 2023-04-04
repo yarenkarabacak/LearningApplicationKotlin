@@ -35,7 +35,6 @@ class FilmsFragment : Fragment() {
         viewModel.listOfFilms.observe(viewLifecycleOwner) {
             val adapter = FilmAdapter(requireContext(), it)
             binding.filmAdapter = adapter
-
         }
 
         return binding.root

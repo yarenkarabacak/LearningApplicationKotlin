@@ -10,29 +10,21 @@ import retrofit2.Response
 
 class CharactersRepo() {
 
-    var characterList: MutableLiveData<List<Characters>>
+    var characterList: MutableLiveData<List<Characters>> = MutableLiveData()
     var charApi = RetrofitClient.getCharacterApi()
-
-    init {
-        characterList = MutableLiveData()
-    }
-
-
 
     fun getCharacters() {
 
-        charApi.allCharacters().enqueue(object : Callback<CharacterResults> {
+        charApi.getCharactersFromApi().enqueue(object : Callback<CharacterResults> {
             override fun onResponse(call: Call<CharacterResults>, response: Response<CharacterResults>) {
                 if (response.isSuccessful) {
                     val chars = response.body()!!.results
                     characterList.value = chars
                 }
-
             }
-
             override fun onFailure(call: Call<CharacterResults>, t: Throwable) {}
         })
-        println(charApi.allCharacters().isExecuted)
+        println(charApi.getCharactersFromApi().isExecuted)
 
     }
 

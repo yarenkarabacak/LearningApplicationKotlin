@@ -6,18 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learningapplication.data_for_room.CharacterApplication
 import com.example.learningapplication.databinding.FragmentCharacterDbBinding
+import com.example.learningapplication.data_for_room.Character
 
 class CharacterDbFragment : Fragment() {
 
     private var _binding: FragmentCharacterDbBinding? = null
     private val binding get() = _binding!!
 
+    lateinit var characterList: LiveData<List<Character>>
+
     private val viewModel: CharacterDbViewModel by activityViewModels {
         CharacterDbViewModelFactory(
-            (activity?.application as CharacterApplication).database.characterDao()
+            (activity?.application as CharacterApplication).database.characterDao(), requireContext()
         )
     }
 
@@ -39,10 +43,12 @@ class CharacterDbFragment : Fragment() {
         val adapter = CharListAdapter()
         binding.recyclerView.adapter = adapter
 
-        viewModel.allChars.observe(this.viewLifecycleOwner) { chars ->
+        characterList = viewModel.getAllCharacters()
+
+        characterList.observe(this.viewLifecycleOwner) { chars ->
             chars.let {
                 if (it.isEmpty()) {
-                    binding.toolbarDb.title = "Nothing here"
+                    binding.toolbarDb.title = "Nothing to show here"
                 }
                 else {
                     binding.toolbarDb.title = "Characters from database"

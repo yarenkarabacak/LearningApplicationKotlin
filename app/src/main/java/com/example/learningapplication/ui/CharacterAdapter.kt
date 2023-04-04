@@ -16,10 +16,6 @@ import com.example.learningapplication.databinding.CardCharactersBinding
 class CharacterAdapter(var mContext: Context, var characterList: List<Characters>) :
     RecyclerView.Adapter<CharacterAdapter.CardHolder>() {
 
-    var index = 0
-
-
-
     class CardHolder (binding: CardCharactersBinding) : RecyclerView.ViewHolder(binding.root) {
         var binding : CardCharactersBinding
         init {
@@ -46,9 +42,7 @@ class CharacterAdapter(var mContext: Context, var characterList: List<Characters
 
         var filmUrlList = mutableListOf<String>()
 
-
         design.cardViewToList.setOnClickListener {
-            index = position
 
             filmUrlList.addAll(character.filmUrls)
             val list = filmUrlList.toTypedArray()

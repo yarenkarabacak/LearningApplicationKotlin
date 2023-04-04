@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import retrofit2.Converter
+
 
 @TypeConverters(FilmTypeConverters::class)
 @Database(entities = [Character::class], version = 3, exportSchema = false)

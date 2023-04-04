@@ -14,6 +14,20 @@ data class Character(@PrimaryKey var charName: String,
                      @ColumnInfo(name = "gender") var charGender: String,
                      @field:TypeConverters(FilmTypeConverters::class) var filmUrls: List<String>)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*@Entity(tableName = "film_url")
 data class FilmUrls(@PrimaryKey(autoGenerate = true) val url_id: Int = 0,
                     @ColumnInfo(name = "char_id") var charId: Int = 0,

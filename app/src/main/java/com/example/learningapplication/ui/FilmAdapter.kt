@@ -42,7 +42,6 @@ class FilmAdapter(var mContext: Context, var filmList: List<Films>) :
         val film = filmList.get(position)
         val design = holder.binding
         design.filmObject = film
-
     }
 
     }
