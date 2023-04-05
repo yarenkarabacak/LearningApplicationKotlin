@@ -8,19 +8,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.learningapplication.data.Characters
 import kotlinx.coroutines.launch
 
-class CharacterDbRepo(private val database: CharRoomDatabase) {
+class CharacterDbRepo(val charDao: CharacterDao) {
 
 
     var allChars: LiveData<List<Character>> = MutableLiveData()
 
     fun getCharsFromDatabase(): LiveData<List<Character>> {
-        allChars = database.characterDao().getChars().asLiveData()
+        allChars = charDao.getChars().asLiveData()
         return allChars
     }
 
 
     suspend fun insertCharacter(char: Character) {
-        database.characterDao().insert(char)
+        charDao.insert(char)
     }
 
     private fun getNewCharacter(charName: String, charHeight: Int, charMass: Int,
@@ -42,13 +42,11 @@ class CharacterDbRepo(private val database: CharRoomDatabase) {
     suspend fun addNewCharacter(charName: String, charHeight: Int, charMass: Int,
                         charHair_color: String, charSkin_color: String,
                         charEye_color: String, charBirth_year: String,
-                        charGender: String, filmUrls: List<String>): Character {
+                        charGender: String, filmUrls: List<String>) {
 
         val newChar = getNewCharacter(charName,charHeight,charMass,charHair_color,
             charSkin_color, charEye_color, charBirth_year, charGender, filmUrls)
         insertCharacter(newChar)
-
-        return newChar
     }
 
     suspend fun addNewCharFromLive(c: Characters) {

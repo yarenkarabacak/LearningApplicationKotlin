@@ -11,16 +11,15 @@ import com.example.learningapplication.data.CharactersRepo
 import com.example.learningapplication.data_for_room.CharRoomDatabase
 import com.example.learningapplication.data_for_room.CharacterDao
 import com.example.learningapplication.data_for_room.CharacterDbRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharacterViewModel(mContext: Context) : ViewModel() {
+@HiltViewModel
+class CharacterViewModel @Inject constructor (val charRepo: CharactersRepo,
+                                              val charDbRepo: CharacterDbRepo) : ViewModel() {
 
-    val charRepo = CharactersRepo()
     var charsList = MutableLiveData<List<Characters>>()
-    val charDbRepo = CharacterDbRepo(CharRoomDatabase.getDatabase(mContext))
-
-
-
 
     init {
         showChars()
@@ -37,14 +36,5 @@ class CharacterViewModel(mContext: Context) : ViewModel() {
                 charDbRepo.addNewCharFromLive(c)
             }
         }
-    }
-}
-class CharacterViewModelFactory(val mcontext: Context) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CharacterViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return CharacterViewModel(mcontext) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

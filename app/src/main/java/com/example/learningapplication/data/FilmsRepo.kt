@@ -1,15 +1,14 @@
 package com.example.learningapplication.data
 
 import androidx.lifecycle.MutableLiveData
+import com.example.learningapplication.retrofit.CharactersAPI
 import com.example.learningapplication.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FilmsRepo {
+class FilmsRepo(var charApi: CharactersAPI) {
     var filmList: MutableLiveData<List<Films>> = MutableLiveData()
-    var charApi =  RetrofitClient.getCharacterApi()
-
 
     fun getFilms(list: List<String>) {
 

@@ -1,6 +1,7 @@
 package com.example.learningapplication.data
 
 import androidx.lifecycle.MutableLiveData
+import com.example.learningapplication.retrofit.CharactersAPI
 import com.example.learningapplication.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -8,10 +9,9 @@ import retrofit2.Response
 
 
 
-class CharactersRepo() {
+class CharactersRepo(var charApi: CharactersAPI) {
 
     var characterList: MutableLiveData<List<Characters>> = MutableLiveData()
-    var charApi = RetrofitClient.getCharacterApi()
 
     fun getCharacters() {
 

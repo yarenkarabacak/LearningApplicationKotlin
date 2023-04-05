@@ -8,10 +8,12 @@ import com.example.learningapplication.data.Characters
 import com.example.learningapplication.data.CharactersRepo
 import com.example.learningapplication.data.Films
 import com.example.learningapplication.data.FilmsRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FilmViewModel: ViewModel() {
+@HiltViewModel
+class FilmViewModel @Inject constructor (val filmRepo: FilmsRepo): ViewModel() {
 
-    val filmRepo = FilmsRepo()
     var listOfFilms = MutableLiveData<List<Films>>()
 
     fun displayFilms(tempList: List<String>) {

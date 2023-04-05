@@ -6,15 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.learningapplication.R
 import com.example.learningapplication.databinding.FragmentFilmsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class FilmsFragment : Fragment() {
 
     private lateinit var binding: FragmentFilmsBinding
-    private lateinit var viewModel: FilmViewModel
+    private val viewModel: FilmViewModel by activityViewModels()
 
 
     var listOfFilmsByChar = listOf<String>()
@@ -42,9 +44,6 @@ class FilmsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val tempViewModel : FilmViewModel by viewModels()
-        viewModel = tempViewModel
-
     }
 
     }

@@ -5,22 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.learningapplication.R
-import com.example.learningapplication.data_for_room.CharacterApplication
 import com.example.learningapplication.databinding.FragmentCharactersBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharactersFragment : Fragment() {
     private lateinit var binding: FragmentCharactersBinding
 
-    private val viewModel: CharacterViewModel by activityViewModels {
-        CharacterViewModelFactory(
-            (requireContext()))
-    }
+    private val viewModel: CharacterViewModel by activityViewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

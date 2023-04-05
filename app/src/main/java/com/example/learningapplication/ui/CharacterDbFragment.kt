@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.learningapplication.data_for_room.CharacterApplication
 import com.example.learningapplication.databinding.FragmentCharacterDbBinding
 import com.example.learningapplication.data_for_room.Character
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharacterDbFragment : Fragment() {
 
     private var _binding: FragmentCharacterDbBinding? = null
@@ -19,11 +20,7 @@ class CharacterDbFragment : Fragment() {
 
     lateinit var characterList: LiveData<List<Character>>
 
-    private val viewModel: CharacterDbViewModel by activityViewModels {
-        CharacterDbViewModelFactory(
-            (activity?.application as CharacterApplication).database.characterDao(), requireContext()
-        )
-    }
+    private val viewModel: CharacterDbViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

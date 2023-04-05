@@ -14,7 +14,9 @@ import androidx.room.TypeConverters
 abstract class CharRoomDatabase: RoomDatabase() {
     abstract fun characterDao(): CharacterDao
 
-    companion object {
+}
+
+/*companion object {
         @Volatile
         private var INSTANCE: CharRoomDatabase? = null
         fun getDatabase(context: Context): CharRoomDatabase {
@@ -30,5 +32,4 @@ abstract class CharRoomDatabase: RoomDatabase() {
 
         }
 
-    }
-}
+    }*/
