@@ -12,7 +12,9 @@ import com.example.learningapplication.data_for_room.CharRoomDatabase
 import com.example.learningapplication.data_for_room.CharacterDao
 import com.example.learningapplication.data_for_room.CharacterDbRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,7 +35,9 @@ class CharacterViewModel @Inject constructor (val charRepo: CharactersRepo,
     fun addCharsToDb() {
         for (c in charsList.value!!) {
             viewModelScope.launch {
-                charDbRepo.addNewCharFromLive(c)
+                withContext(Dispatchers.IO) {
+                    charDbRepo.addNewCharFromLive(c)
+                }
             }
         }
     }
