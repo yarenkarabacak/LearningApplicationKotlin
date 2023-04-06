@@ -7,15 +7,13 @@ import com.example.learningapplication.data.FilmsRepo
 import com.example.learningapplication.data_for_room.CharRoomDatabase
 import com.example.learningapplication.data_for_room.CharacterDao
 import com.example.learningapplication.data_for_room.CharacterDbRepo
-import com.example.learningapplication.retrofit.CharactersAPI
+import com.example.learningapplication.retrofit.StarWarsAPI
 import com.example.learningapplication.retrofit.RetrofitClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -24,7 +22,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCharactersRepo(charApi: CharactersAPI) : CharactersRepo {
+    fun provideCharactersRepo(charApi: StarWarsAPI) : CharactersRepo {
         return CharactersRepo(charApi)
     }
     @Provides
@@ -35,7 +33,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideFilmsRepo(charApi: CharactersAPI) : FilmsRepo {
+    fun provideFilmsRepo(charApi: StarWarsAPI) : FilmsRepo {
         return FilmsRepo(charApi)
     }
 
@@ -51,8 +49,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCharApi() : CharactersAPI{
-        return RetrofitClient.getCharacterApi()
+    fun provideCharApi() : StarWarsAPI{
+        return RetrofitClient.getStarWarsApi()
     }
 
 }

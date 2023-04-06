@@ -15,8 +15,8 @@ class RetrofitClient {
                 .build()
         }
 
-        fun getCharacterApi(): CharactersAPI {
-            return getClient(BASE_URL).create(CharactersAPI::class.java)
+        fun getStarWarsApi(): StarWarsAPI {
+            return getClient(BASE_URL).create(StarWarsAPI::class.java)
         }
 
     }

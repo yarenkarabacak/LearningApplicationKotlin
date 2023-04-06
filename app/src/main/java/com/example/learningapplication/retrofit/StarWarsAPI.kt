@@ -5,7 +5,7 @@ import com.example.learningapplication.data.CharacterResults
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface CharactersAPI {
+interface StarWarsAPI {
     @GET("people")
     fun getCharactersFromApi(): Call<CharacterResults>
 
