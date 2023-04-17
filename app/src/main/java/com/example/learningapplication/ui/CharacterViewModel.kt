@@ -1,20 +1,13 @@
 package com.example.learningapplication.ui
 
-import android.content.Context
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.learningapplication.data.Characters
 import com.example.learningapplication.data.CharactersRepo
-import com.example.learningapplication.data_for_room.CharRoomDatabase
-import com.example.learningapplication.data_for_room.CharacterDao
 import com.example.learningapplication.data_for_room.CharacterDbRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,23 +15,28 @@ class CharacterViewModel @Inject constructor (val charRepo: CharactersRepo,
                                               val charDbRepo: CharacterDbRepo) : ViewModel() {
 
     var charsList = MutableLiveData<List<Characters>>()
+    var loadingStatus: MutableLiveData<Boolean>
 
     init {
         showChars()
-        charsList = charRepo.showCharacters()
+        charsList = charRepo.sendCharacterList()
+        loadingStatus = charRepo.getLoadingStatus()
+
     }
 
     fun showChars() {
-        charRepo.getCharacters()
+        charRepo.getAllCharacters()
     }
 
-    fun addCharsToDb() {
+    fun addCharactersToDb() {
         for (c in charsList.value!!) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    charDbRepo.addNewCharFromLive(c)
+                    charDbRepo.addNewCharacterFromLiveData(c)
                 }
             }
         }
     }
+
+
 }

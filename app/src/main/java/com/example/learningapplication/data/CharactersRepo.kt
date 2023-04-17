@@ -10,9 +10,11 @@ import retrofit2.Response
 
 class CharactersRepo(var charApi: StarWarsAPI) {
 
-    var characterList: MutableLiveData<List<Characters>> = MutableLiveData()
+    private var characterList: MutableLiveData<List<Characters>> = MutableLiveData()
+    private val loading = MutableLiveData<Boolean>()
 
-    fun getCharacters() {
+    fun getAllCharacters() {
+        loading.postValue(true)
 
         charApi.getCharactersFromApi().enqueue(object : Callback<CharacterResults> {
             override fun onResponse(call: Call<CharacterResults>, response: Response<CharacterResults>) {
@@ -20,15 +22,23 @@ class CharactersRepo(var charApi: StarWarsAPI) {
                     val chars = response.body()!!.results
                     characterList.value = chars
                 }
+                loading.postValue(false)
             }
-            override fun onFailure(call: Call<CharacterResults>, t: Throwable) {}
+
+            override fun onFailure(call: Call<CharacterResults>, t: Throwable) {
+                loading.postValue(false)
+            }
         })
         println(charApi.getCharactersFromApi().isExecuted)
 
     }
 
-    fun showCharacters(): MutableLiveData<List<Characters>> {
+    fun sendCharacterList(): MutableLiveData<List<Characters>> {
         return characterList
+    }
+
+    fun getLoadingStatus(): MutableLiveData<Boolean> {
+        return loading
     }
 
 

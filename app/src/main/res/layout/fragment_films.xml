@@ -14,22 +14,34 @@
         android:layout_height="match_parent"
         tools:context=".ui.FilmsFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_films"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:adapter="@{FilmAdapter}"
+        <ProgressBar
+            android:id="@+id/progressBarFilms"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="135dp"
+            android:layout_height="116dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_films"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_films"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adapter="@{FilmAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_films"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_films"
-            app:title="@{toolbarFilmsTitle}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -39,7 +51,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-             />
+            app:title="@{toolbarFilmsTitle}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

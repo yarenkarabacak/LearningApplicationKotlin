@@ -7,9 +7,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FilmsRepo(var charApi: StarWarsAPI) {
-    var filmList: MutableLiveData<List<Films>> = MutableLiveData()
-
-    fun getFilms(list: List<String>) {
+    private var filmsListByCharacter: MutableLiveData<List<Films>> = MutableLiveData()
+    private val loading = MutableLiveData<Boolean>()
+    fun getAndFilterFilms(list: List<String>) {
+        loading.postValue(true)
 
         charApi.getFilmsFromApi().enqueue(object : Callback<FilmResults> {
             override fun onResponse(call: Call<FilmResults>?, response: Response<FilmResults>) {
@@ -22,16 +23,22 @@ class FilmsRepo(var charApi: StarWarsAPI) {
                         }
                     }
                 }
-                filmList.value = filteredList
+                filmsListByCharacter.value = filteredList
+                loading.postValue(false)
 
             }
 
-            override fun onFailure(call: Call<FilmResults>, t: Throwable) {}
+            override fun onFailure(call: Call<FilmResults>, t: Throwable) {
+                loading.postValue(false)
+            }
         })
         }
 
-    fun showFilms() : MutableLiveData<List<Films>> {
-        return filmList
+    fun sendFilteredFilmsList() : MutableLiveData<List<Films>> {
+        return filmsListByCharacter
+    }
+    fun getLoadingStatus(): MutableLiveData<Boolean> {
+        return loading
     }
 
 }

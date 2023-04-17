@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.learningapplication.R
 import com.example.learningapplication.databinding.FragmentCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,13 @@ class CharactersFragment : Fragment() {
         binding.characterFragment = this
 
 
+        viewModel.loadingStatus.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                true -> binding.progressBarChars.visibility = View.VISIBLE
+                false -> binding.progressBarChars.visibility = View.INVISIBLE
+            }
 
+        })
         viewModel.charsList.observe(viewLifecycleOwner) {
 
             val adapter = CharacterAdapter(requireContext(), it)
@@ -37,8 +44,9 @@ class CharactersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.buttonAdd.setOnClickListener {
-            viewModel.addCharsToDb()
+            viewModel.addCharactersToDb()
         }
     }
 

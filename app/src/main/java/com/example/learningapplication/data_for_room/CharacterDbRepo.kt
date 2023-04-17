@@ -1,32 +1,34 @@
 package com.example.learningapplication.data_for_room
 
-import android.text.TextUtils.getChars
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
 import com.example.learningapplication.data.Characters
-import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 class CharacterDbRepo(val charDao: CharacterDao) {
 
 
-    var allChars: LiveData<List<Character>> = MutableLiveData()
+    private var allCharactersList: LiveData<List<Character>> = MutableLiveData()
+    private var dbCharCounter: LiveData<Int> = MutableLiveData()
 
-    fun getCharsFromDatabase(): LiveData<List<Character>> {
-        allChars = charDao.getChars().asLiveData()
-        return allChars
+
+    fun getCharactersFromDatabase(): LiveData<List<Character>> {
+        allCharactersList = charDao.getCharactersFromDb().asLiveData()
+        return allCharactersList
     }
 
 
     suspend fun insertCharacter(char: Character) {
-        charDao.insert(char)
+
+        charDao.insertCharacterToDb(char)
+
     }
 
-    private fun getNewCharacter(charName: String, charHeight: Int, charMass: Int,
-                                charHair_color: String, charSkin_color: String,
-                                charEye_color: String, charBirth_year: String,
-                                charGender: String, filmUrls: List<String>): Character {
+    private fun createNewCharacterObject(charName: String, charHeight: Int, charMass: Int,
+                                         charHair_color: String, charSkin_color: String,
+                                         charEye_color: String, charBirth_year: String,
+                                         charGender: String, filmUrls: List<String>): Character {
         return Character(
             charName = charName,
             charHeight = charHeight,
@@ -39,18 +41,19 @@ class CharacterDbRepo(val charDao: CharacterDao) {
             filmUrls = filmUrls)
     }
 
-    suspend fun addNewCharacter(charName: String, charHeight: Int, charMass: Int,
-                        charHair_color: String, charSkin_color: String,
-                        charEye_color: String, charBirth_year: String,
-                        charGender: String, filmUrls: List<String>) {
+    suspend fun addNewCharacterToDb(charName: String, charHeight: Int, charMass: Int,
+                                    charHair_color: String, charSkin_color: String,
+                                    charEye_color: String, charBirth_year: String,
+                                    charGender: String, filmUrls: List<String>) {
 
-        val newChar = getNewCharacter(charName,charHeight,charMass,charHair_color,
+        val newChar = createNewCharacterObject(charName,charHeight,charMass,charHair_color,
             charSkin_color, charEye_color, charBirth_year, charGender, filmUrls)
         insertCharacter(newChar)
     }
 
-    suspend fun addNewCharFromLive(c: Characters) {
-        addNewCharacter(
+    suspend fun addNewCharacterFromLiveData(c: Characters) {
+
+        addNewCharacterToDb(
             c.name,
             c.height,
             c.mass,
@@ -61,6 +64,11 @@ class CharacterDbRepo(val charDao: CharacterDao) {
             c.gender,
             c.filmUrls
         )
+    }
+
+    fun dbCharacterCounter() : LiveData<Int> {
+        dbCharCounter = charDao.DbCharacterCounter().asLiveData()
+        return dbCharCounter
     }
 
 

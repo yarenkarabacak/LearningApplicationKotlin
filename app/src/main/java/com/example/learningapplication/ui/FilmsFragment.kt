@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.learningapplication.R
 import com.example.learningapplication.databinding.FragmentFilmsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ class FilmsFragment : Fragment() {
     private val viewModel: FilmViewModel by activityViewModels()
 
 
-    var listOfFilmsByChar = listOf<String>()
+    var filmsListByCharacters = listOf<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_films, container, false)
@@ -27,19 +27,36 @@ class FilmsFragment : Fragment() {
         binding.filmsFragment = this
 
 
-        var bundle = arguments
-        var filmsFromBundle = bundle?.get("filmms") as Array<String>
-        listOfFilmsByChar = filmsFromBundle.toList()
+       getFilmsFromCharacterAdapter()
+       getFilteredFilmsFromViewModel()
 
-        viewModel.displayFilms(listOfFilmsByChar)
-        viewModel.loadFilms()
 
-        viewModel.listOfFilms.observe(viewLifecycleOwner) {
+        viewModel.loadingStatus.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                true -> binding.progressBarFilms.visibility = View.VISIBLE
+                false -> binding.progressBarFilms.visibility = View.INVISIBLE
+            }
+
+        })
+
+        viewModel.filteredFilmsListByCharacter.observe(viewLifecycleOwner) {
+
             val adapter = FilmAdapter(requireContext(), it)
             binding.filmAdapter = adapter
         }
 
         return binding.root
+    }
+
+    private fun getFilmsFromCharacterAdapter(){
+        var bundle = arguments
+        var filmsFromBundle = bundle?.get("filmms") as Array<String>
+        filmsListByCharacters = filmsFromBundle.toList()
+    }
+
+    private fun getFilteredFilmsFromViewModel() {
+        viewModel.sendListToGetAndFilterFilms(filmsListByCharacters)
+        viewModel.getFilteredFilmListFromRepo()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
